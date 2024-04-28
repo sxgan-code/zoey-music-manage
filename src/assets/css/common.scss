@@ -1,0 +1,157 @@
+@import "@/assets/iconfonts/iconconfig.scss";
+@import "@/assets/fonts/fonts.scss";
+@import "@/assets/css/animation/index.scss";
+
+:root {
+  /*文字颜色*/
+  --text-color: rgb(255, 255, 255);
+  --text-color-rgba: var(--bg-light-rgba-7);
+  --text-active-color: rgb(226, 171, 144);
+  /*部分配色*/
+  --text-color-light-red: #FF6A6A;
+  /*灰色*/
+  --text-grey-light: rgb(153, 153, 153);
+  --text-grey-light-1: rgba(153, 153, 153, 0.1);
+  --text-grey-light-2: rgba(153, 153, 153, 0.2);
+  --text-grey-light-3: rgba(153, 153, 153, 0.3);
+  --text-grey-light-4: rgba(153, 153, 153, 0.4);
+  --text-grey-light-5: rgba(153, 153, 153, 0.5);
+  --text-grey-light-6: rgba(153, 153, 153, 0.6);
+  --text-grey-light-7: rgba(153, 153, 153, 0.7);
+  --text-grey-light-8: rgba(153, 153, 153, 0.8);
+  --text-grey-light-9: rgba(153, 153, 153, 0.9);
+  /*高亮色*/
+  --bg-light-rgba: rgb(255, 255, 255);
+  --bg-light-rgba-1: rgba(255, 255, 255, 0.1);
+  --bg-light-rgba-2: rgba(255, 255, 255, 0.2);
+  --bg-light-rgba-3: rgba(255, 255, 255, 0.3);
+  --bg-light-rgba-4: rgba(255, 255, 255, 0.4);
+  --bg-light-rgba-5: rgba(255, 255, 255, 0.5);
+  --bg-light-rgba-6: rgba(255, 255, 255, 0.6);
+  --bg-light-rgba-7: rgba(255, 255, 255, 0.7);
+  --bg-light-rgba-8: rgba(255, 255, 255, 0.8);
+  --bg-light-rgba-9: rgba(255, 255, 255, 0.9);
+  /*暗色*/
+  --text-deep: rgb(0, 0, 0);
+  --text-deep-rgba-1: rgba(0, 0, 0, 0.1);
+  --text-deep-rgba-2: rgba(0, 0, 0, 0.2);
+  --text-deep-rgba-3: rgba(0, 0, 0, 0.3);
+  --text-deep-rgba-4: rgba(0, 0, 0, 0.4);
+  --text-deep-rgba-5: rgba(0, 0, 0, 0.5);
+  --text-deep-rgba-6: rgba(0, 0, 0, 0.6);
+  --text-deep-rgba-7: rgba(0, 0, 0, 0.7);
+  --text-deep-rgba-8: rgba(0, 0, 0, 0.8);
+  --text-deep-rgba-9: rgba(0, 0, 0, 0.9);
+  /*其他配色方案*/
+  --text--tip: #3EAF7C;
+  --my-dark-light-1: #805398;
+  --el-active-color: #cccccc;
+  --el-color-white: #ffffff;
+  --el-color-black: #000000;
+  --el-color-primary: #409eff;
+  --el-color-primary-light-3: #79bbff;
+  --el-color-primary-light-5: #a0cfff;
+  --el-color-primary-light-7: #c6e2ff;
+  --el-color-primary-light-8: #d9ecff;
+  --el-color-primary-light-9: #ecf5ff;
+  --el-color-primary-dark-2: #337ecc;
+  --el-color-success: #67c23a;
+  --el-color-success-light-3: #95d475;
+  --el-color-success-light-5: #b3e19d;
+  --el-color-success-light-7: #d1edc4;
+  --el-color-success-light-8: #e1f3d8;
+  --el-color-success-light-9: #f0f9eb;
+  --el-color-success-dark-2: #529b2e;
+  --el-color-warning: #e6a23c;
+  --el-color-warning-light-3: #eebe77;
+  --el-color-warning-light-5: #f3d19e;
+  --el-color-warning-light-7: #f8e3c5;
+  --el-color-warning-light-8: #faecd8;
+  --el-color-warning-light-9: #fdf6ec;
+  --el-color-warning-dark-2: #b88230;
+  --el-color-danger: #f56c6c;
+  --el-color-danger-light-3: #f89898;
+  --el-color-danger-light-5: #fab6b6;
+  --el-color-danger-light-7: #fcd3d3;
+  --el-color-danger-light-8: #fde2e2;
+  --el-color-danger-light-9: #fef0f0;
+  --el-color-danger-dark-2: #c45656;
+  --el-color-error: #f56c6c;
+  --el-color-error-light-3: #f89898;
+  --el-color-error-light-5: #fab6b6;
+  --el-color-error-light-7: #fcd3d3;
+  --el-color-error-light-8: #fde2e2;
+  --el-color-error-light-9: #fef0f0;
+  --el-color-error-dark-2: #c45656;
+  --el-color-info: #909399;
+  --el-color-info-light-3: #b1b3b8;
+  --el-color-info-light-5: #c8c9cc;
+  --el-color-info-light-7: #dedfe0;
+  --el-color-info-light-8: #e9e9eb;
+  --el-color-info-light-9: #f4f4f5;
+  --el-color-info-dark-2: #73767a;
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f2f3f5;
+  --el-bg-color-overlay: #ffffff;
+  --el-text-color-primary: #303133;
+  --el-text-color-regular: #606266;
+}
+
+/* 页面元素整体设置*/
+* {
+  user-select: none;
+  margin: 0;
+  padding: 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  ul, ol {
+    list-style: none;
+  }
+
+  :focus {
+    outline: none;
+  }
+}
+
+/*
+  此处为根元素 fontsize大小
+  当前设置为 10px，表示 1rem=10px
+  注意：本身带有fontsize属性的标签可能会有不同，例如 h1、h2...等标签可能并非期望值，所以建议这类标签自己写样式
+*/
+html, body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  font-family: 'HarmonyOS Sans', sans-serif;
+}
+
+/*滚动条整体样式*/
+::-webkit-scrollbar {
+  display: flex;
+  width: 0.4rem; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0.4rem; /*表示水平方向的滚动条高度*/
+}
+
+::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+  border-radius: 0.2rem;
+  -webkit-box-shadow: inset 0 0 0.1rem rgba(#fff, 0.2);
+  background: rgba(#fff, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 0.2rem;
+  -webkit-box-shadow: inset 0 0 0.1rem rgba(#fff, 0.1);
+  background: rgba(#fff, 0.2);
+}
+
+::-webkit-scrollbar-track { /*滚动条里面轨道*/
+  border-radius: 0.2rem;
+  //background: rgba(#fff, 0.1);
+  opacity: 0;
+}
+
+
+
+
