@@ -3,6 +3,8 @@ import useIpc from '@/ipc/use-ipc.ts'
 import {ref} from "vue";
 import {verifyCheckStr, VerifyTypeEnum} from "@/utils/verify-utils.ts";
 import {useUserStore} from "@/store/user-store.ts";
+import {signinApi} from "@/api/auth";
+import msg, {PositionTypeEnum} from "@/components/message";
 
 const {sendChildWinController, sendChildMsgToMain} = useIpc();
 
@@ -14,8 +16,8 @@ const errMsg = ref<string>('')
 
 // 表单校验
 const registerData = ref({
-  email: '',
-  password: '',
+  email: 'sxgan@foxmail.com',
+  password: 'aaa123',
   rePassword: '',
   verifyCode: ''
 })
@@ -26,8 +28,25 @@ const registerData = ref({
 const signinSys = () => {
   if (verifyFormData(VerifySignEnum.SIGNIN)) {
     // 表单所有元素验证通过，可以提交了
-    // loading.value = true
+    
     userStore.isMask = true
+    signinApi(registerData.value).then(res => {
+      console.log(res)
+      if (res.status != 200) {
+        errMsg.value = res.message
+      } else {
+        sendChildMsgToMain(res.data.token)
+        // console.log("跳转主页面,token: " + res.data.token)
+        sendChildWinController('close')
+      }
+    }).catch(err => {
+      msg.error('服务器端异常，请稍后再试', PositionTypeEnum.TOP, 2, () => {
+        isLogin.value = true
+      })
+    }).finally(() => {
+          userStore.isMask = false
+        }
+    )
     
   }
 }
