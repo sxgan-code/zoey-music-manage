@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import {useUserStore} from "@/store/user-store.ts";
-import {usePlayStore} from "@/store/play-store.ts";
 import {onMounted, ref} from "vue";
 
 const userStore = useUserStore();
-const playStore = usePlayStore();
 
 const img = ref()
 onMounted(() => {
@@ -21,10 +19,7 @@ onMounted(() => {
 
 <template>
   <div class="bg-mask">
-    <img v-if="!userStore.isChange" src="@/assets/images/20240002.jpg" alt="">
-    <img v-if="userStore.isChange"
-         :key="userStore.bgImg"
-         :src="playStore.staticBaseUrl + userStore.bgImg" alt="">
+    <img v-if="!userStore.isChange" src="@/assets/images/bg.png" alt="">
   </div>
 </template>
 
@@ -42,8 +37,18 @@ onMounted(() => {
     height: 100vh;
     object-fit: cover;
     object-position: center;
-    //background-size: cover;
-    opacity: 0.94;
+    opacity: 0.97;
   }
+}
+
+.bg-mask:after {
+  content: '';
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: var(--text-deep-rgba-4);
+  filter: blur(60px);
 }
 </style>

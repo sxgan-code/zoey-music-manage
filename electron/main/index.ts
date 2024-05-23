@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, MessageChannelMain, shell} from 'electron'
+import {app, BrowserWindow, ipcMain, shell} from 'electron'
 import {release} from 'node:os'
 import {dirname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -40,16 +40,13 @@ if (!app.requestSingleInstanceLock()) {
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
-let justChildWin: BrowserWindow | null = null
+let signinWin: BrowserWindow | null = null
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.mjs')
 const url = process.env.VITE_DEV_SERVER_URL
 const indexHtml = join(process.env.DIST, 'index.html')
 
-// 建立通道
-const {port1, port2} = new MessageChannelMain()
-
-async function createWindow() {
+async function createMainWindow(param: any) {
     win = new BrowserWindow({
         title: 'Main window',
         width: 1200,
@@ -72,11 +69,11 @@ async function createWindow() {
     })
     initMainWinIpc(win)
     if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
-        win.loadURL(url)
+        win.loadURL(url + '#' + param.url)
         // Open devTool if the app is not packaged
         win.webContents.openDevTools({mode: 'detach'})
     } else {
-        win.loadFile(indexHtml)
+        win.loadFile(indexHtml, {hash: param.url})
         // read more on https://www.gznotes.com/how-to-protect-electron-app-source-code/
         win.webContents.on('devtools-opened', () => {
             win?.webContents.closeDevTools();
@@ -97,8 +94,8 @@ async function createWindow() {
     // win.webContents.on('will-navigate', (event, url) => { }) #344
 }
 
-async function createChildWindow() {
-    justChildWin = new BrowserWindow({
+async function createSigninWindow() {
+    signinWin = new BrowserWindow({
         title: 'child window',
         icon: join(process.env.VITE_PUBLIC, 'logo/logo-music-wangyiyun-red.ico'),
         width: 600,
@@ -117,44 +114,44 @@ async function createChildWindow() {
     })
 
     if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
-        justChildWin.loadURL(url)
+        signinWin.loadURL(url)
         // Open devTool if the app is not packaged
-        justChildWin.webContents.openDevTools({mode: 'detach'})
+        signinWin.webContents.openDevTools({mode: 'detach'})
     } else {
-        justChildWin.loadFile(url)
-        justChildWin.webContents.openDevTools({mode: 'detach'})
-        justChildWin.webContents.on('devtools-opened', () => {
-            justChildWin?.webContents.closeDevTools();
+        signinWin.loadFile(indexHtml)
+        signinWin.webContents.openDevTools({mode: 'detach'})
+        signinWin.webContents.on('devtools-opened', () => {
+            signinWin?.webContents.closeDevTools();
         });
     }
 
     // Test actively push message to the Electron-Renderer
-    justChildWin.webContents.on('did-finish-load', () => {
-        justChildWin?.webContents.send('main-process-message', new Date().toLocaleString())
+    signinWin.webContents.on('did-finish-load', () => {
+        signinWin?.webContents.send('main-process-message', new Date().toLocaleString())
     })
     // Make all links open with the browser, not with the application
-    justChildWin.webContents.setWindowOpenHandler(({url}) => {
+    signinWin.webContents.setWindowOpenHandler(({url}) => {
         if (url.startsWith('https:')) shell.openExternal(url)
         return {action: 'deny'}
     })
     // justChildWin.webContents.on('will-navigate', (event, url) => { }) #344
-    justChildWin.on('closed', () => {
+    signinWin.on('closed', () => {
         // 在窗口对象被关闭时，取消订阅所有与该窗口相关的事件
-        justChildWin?.removeAllListeners();
-        justChildWin = null
+        signinWin?.removeAllListeners();
+        signinWin = null
     })
 }
 
 // 子窗口控制
 ipcMain.on('child-win-controller', (event, data) => {
     if (data == 'max') {
-        justChildWin?.maximize()
+        signinWin?.maximize()
     } else if (data == 'unmax') {
-        justChildWin?.unmaximize()
+        signinWin?.unmaximize()
     } else if (data == 'min') {
-        justChildWin?.minimize()
+        signinWin?.minimize()
     } else if (data == 'close') {
-        justChildWin?.close()
+        signinWin?.close()
     }
 })
 // 子窗口需要发送到主窗口的消息
@@ -165,12 +162,13 @@ ipcMain.on('child-main-msg', (event, data) => {
 // 异步打开窗口
 ipcMain.handle("renderer-open-win", (e, param: string) => {
     console.log(param)
-    if (win != null && justChildWin === null) {
+    if (signinWin != null && win === null) {
         console.log('创建子窗口')
+        createMainWindow(param)
     }
 });
 
-app.whenReady().then(createChildWindow)
+app.whenReady().then(createSigninWindow)
 
 app.on('window-all-closed', () => {
     win = null
@@ -190,23 +188,6 @@ app.on('activate', () => {
     if (allWindows.length) {
         allWindows[0].focus()
     } else {
-        createWindow()
-    }
-})
-
-// New window example arg: new windows url
-ipcMain.handle('open-win', (_, arg) => {
-    const childWindow = new BrowserWindow({
-        webPreferences: {
-            preload,
-            nodeIntegration: true,
-            contextIsolation: true,
-        },
-    })
-    console.log(`${url}#${arg.url}`)
-    if (process.env.VITE_DEV_SERVER_URL) {
-        childWindow.loadURL(`${url}#${arg.url}`)
-    } else {
-        childWindow.loadFile(indexHtml, {hash: arg.url})
+        createSigninWindow()
     }
 })

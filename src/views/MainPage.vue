@@ -3,9 +3,7 @@
 import {useUserStore} from "@/store/user-store.ts";
 import MainLeftMenu from "@/components/MainLeftMenu.vue";
 import MainHead from "@/components/MainHead.vue";
-import MainRightPlayBar from "@/components/MainRightPlayBar.vue";
 import {useRoute} from "vue-router";
-import MusicPlay from "@/components/MusicPlay.vue";
 
 var userStore = useUserStore();
 const route = useRoute()
@@ -31,13 +29,8 @@ const route = useRoute()
         <div class="right-box-content">
           <router-view :key="route.fullPath"/>
         </div>
-        <div class="right-box-bar">
-          <main-right-play-bar/>
-        </div>
-      
       </div>
     </div>
-    <music-play/>
   </div>
 </template>
 

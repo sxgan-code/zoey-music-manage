@@ -17,9 +17,20 @@ const mainRouters: RouteRecordRaw[] = [
         path: '/main',
         name: 'main',
         component: () => import('@/views/MainPage.vue'),
-        redirect: '/main/recommend',
+        redirect: '/main/content',
         children: [
             /* 左侧导航栏 */
+            {
+                path: 'content',
+                name: 'content',
+                component: () => import('@/components/MainContent.vue'),
+            },
+            /* 左侧导航栏 */
+            {
+                path: 'file/song/list',
+                name: 'songFile',
+                component: () => import('@/components/file/MusicSongList.vue'),
+            }
         ],
     },
 ]

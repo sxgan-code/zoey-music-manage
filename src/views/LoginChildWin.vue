@@ -21,7 +21,17 @@ const registerData = ref({
   rePassword: '',
   verifyCode: ''
 })
-
+/**
+ * @Description: 打开系统窗口
+ * @Author: sxgan
+ * @Date: 2024/4/13 23:35
+ **/
+const openMainWin = (path: string) => {
+  let data = {
+    url: path
+  }
+  window.ipcRenderer.invoke('renderer-open-win', data);
+}
 /**
  * 登录
  */
@@ -35,6 +45,7 @@ const signinSys = () => {
       if (res.status != 200) {
         errMsg.value = res.message
       } else {
+        openMainWin('/main')
         sendChildMsgToMain(res.data.token)
         // console.log("跳转主页面,token: " + res.data.token)
         sendChildWinController('close')
