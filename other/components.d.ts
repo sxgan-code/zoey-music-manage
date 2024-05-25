@@ -14,5 +14,7 @@ declare module 'vue' {
     MusicSongList: typeof import('./../src/components/file/MusicSongList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchBox: typeof import('./../src/components/common/SearchBox.vue')['default']
+    TableListBox: typeof import('./../src/components/common/TableListBox.vue')['default']
   }
 }

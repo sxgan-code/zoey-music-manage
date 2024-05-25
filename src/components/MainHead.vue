@@ -47,7 +47,7 @@ const {sendWinController} = useIPC()
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
+  height: 7rem;
   .head-logo {
     width: 25rem;
     text-align: center;
@@ -74,7 +74,7 @@ const {sendWinController} = useIPC()
   }
   
   .head-sys-click {
-    height: 8rem;
+    height: 7rem;
     display: flex;
     
     .head-user-avatar {

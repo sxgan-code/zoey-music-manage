@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 import {useUserStore} from "@/store/user-store";
-import msg, {PositionTypeEnum} from "@/components/message";
 import router from "@/router";
+import {FileTextOutlined, HomeOutlined} from "@ant-design/icons-vue";
 
 const userStore = useUserStore()
 </script>
@@ -12,18 +12,20 @@ const userStore = useUserStore()
     <div class="my-music-title">系统</div>
     <div class="my-music-list">
       <div class="like-music" @click="router.push('/main/content')">
-        <i class="icon huaweiicon icon-ic_public_home"></i> <span>主页</span>
+        <i>
+          <HomeOutlined/>
+        </i>
+        <span>主页</span>
       </div>
     </div>
   </div>
   <div class="menu-block">
     <div class="my-music-title">文件管理</div>
     <div class="my-music-list">
-      <div class="like-music" @click="msg.warning('开发中。。。', PositionTypeEnum.TOP)">
-        <i class="icon huaweiicon icon-ic_public_favor"></i> <span>歌曲文件</span>
-      </div>
-      <div class="local-down" @click="msg.warning('开发中。。。', PositionTypeEnum.TOP)">
-        <i class="icon huaweiicon icon-ic_gallery_move_out"></i> <span>图片文件</span>
+      <div class="like-music" @click="router.push('/main/file/song/list')">
+        <i>
+          <FileTextOutlined/>
+        </i><span>歌曲文件</span>
       </div>
     </div>
   </div>

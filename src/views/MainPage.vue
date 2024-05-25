@@ -40,14 +40,14 @@ const route = useRoute()
   height: 100vh;
   
   .head-box {
-    height: 8rem;
+    height: 7rem;
     width: 100vw;
     -webkit-app-region: drag; // 整个菜单栏可拖拽
   }
   
   .content-box {
     width: 100vw;
-    height: calc(100vh - 8rem);
+    height: calc(100vh - 7rem);
     display: flex;
     
     .left-menu {
@@ -63,12 +63,7 @@ const route = useRoute()
       
       .right-box-content {
         width: calc(100vw - 20rem);
-        height: calc(100vh - 16rem);
-      }
-      
-      .right-box-bar {
-        width: calc(100vw - 20rem);
-        height: 8rem;
+        height: calc(100vh - 7rem);
       }
     }
   }

@@ -66,6 +66,7 @@ export default defineConfig(({command}) => {
                 renderer: {},
             }),
             AutoImport({
+                imports: [],
                 resolvers: [],
                 // 配置auto-imports.d.ts文件生成路径
                 dts: path.resolve(__dirname, "other/auto-imports.d.ts")
@@ -75,11 +76,11 @@ export default defineConfig(({command}) => {
                 // 配置components.d.ts文件生成路径
                 dts: path.resolve(__dirname, "other/components.d.ts")
             }),
+
         ],
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, "./src"),
-                '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
             }
         },
         clearScreen: false,

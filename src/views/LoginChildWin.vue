@@ -11,7 +11,6 @@ const {sendChildWinController, sendChildMsgToMain} = useIpc();
 var userStore = useUserStore();
 
 
-const isLogin = ref(true)
 const errMsg = ref<string>('')
 
 // 表单校验
@@ -52,7 +51,6 @@ const signinSys = () => {
       }
     }).catch(err => {
       msg.error('服务器端异常，请稍后再试', PositionTypeEnum.TOP, 2, () => {
-        isLogin.value = true
       })
     }).finally(() => {
           userStore.isMask = false
@@ -89,9 +87,7 @@ function verifyFormData(sign: VerifySignEnum) {
     return true
   }
 }
-
 </script>
-
 <template>
   <div class="login-root-box">
     <div class="globe-mask" v-if="userStore.isMask">
@@ -108,7 +104,7 @@ function verifyFormData(sign: VerifySignEnum) {
     <div class="select-win-box">
       <div class="login-box bg-color">登录账号</div>
     </div>
-    <div v-if="isLogin" class="content-box login-content">
+    <div class="content-box login-content">
       <div class="box-form">
         <div>
           <input class="input-box" type="text" @input="verifyFormData(VerifySignEnum.OTHER)" name=""
@@ -161,11 +157,11 @@ function verifyFormData(sign: VerifySignEnum) {
     background: #F4F4F4;
     margin: 5rem auto 3rem;
     border-radius: 2.5rem;
-    border: 0.2rem solid #F4F4F4;
     display: flex;
     
     div {
       color: #696969;
+      border: 0.15rem solid #F4F4F4;
       width: 60vw;
       height: 4rem;
       text-align: center;

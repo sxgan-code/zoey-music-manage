@@ -1,25 +1,10 @@
 <script setup lang="ts">
-import {useUserStore} from "@/store/user-store.ts";
-import {onMounted, ref} from "vue";
 
-const userStore = useUserStore();
-
-const img = ref()
-onMounted(() => {
-  var path = localStorage.getItem('bgImg');
-  console.log(path)
-  if (path === null) {
-    userStore.bgImg = '/image/skins/20240003.jpg'
-  } else {
-    userStore.isChange = true
-    userStore.bgImg = path
-  }
-})
 </script>
 
 <template>
   <div class="bg-mask">
-    <img v-if="!userStore.isChange" src="@/assets/images/bg.png" alt="">
+    <img src="@/assets/images/bg.png" alt="">
   </div>
 </template>
 

@@ -1,7 +1,6 @@
 @import "@/assets/iconfonts/iconconfig.scss";
 @import "@/assets/fonts/fonts.scss";
 @import "@/assets/css/animation/index.scss";
-
 :root {
   /*文字颜色*/
   --text-color: rgb(255, 255, 255);
@@ -152,6 +151,13 @@ html, body {
   opacity: 0;
 }
 
+input::placeholder {
+  color: var(--bg-light-rgba-3);
+}
 
+/*这是控制上下小箭头的*/
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
 
 
