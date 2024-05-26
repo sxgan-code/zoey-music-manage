@@ -54,6 +54,7 @@ const route = useRoute()
       width: 20rem;
       height: 100%;
       overflow-y: auto;
+      background: var(--zoey-bg-menu);
     }
     
     .right-box {

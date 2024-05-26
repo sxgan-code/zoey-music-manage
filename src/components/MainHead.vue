@@ -48,12 +48,13 @@ const {sendWinController} = useIPC()
   flex-direction: row;
   justify-content: space-between;
   height: 7rem;
+  background: var(--zoey-bg-head);
   .head-logo {
     width: 25rem;
     text-align: center;
     display: flex;
     font-family: "HarmonyOS Sans", sans-serif;
-    color: var(--text-color);
+    color: var(--bg-light-rgb);
     
     i {
       line-height: 7rem;
@@ -85,7 +86,7 @@ const {sendWinController} = useIPC()
       
       img {
         -webkit-app-region: no-drag;
-        background: var(--el-color-white);
+        background: var(--bg-light-rgb);
         border-radius: 1.8rem;
         width: 3.6rem;
         height: 3.6rem;
@@ -98,7 +99,7 @@ const {sendWinController} = useIPC()
       line-height: 6rem;
       font-size: 1.4rem;
       font-family: "HarmonyOS Sans", "sans-serif";
-      color: var(--text-color);
+      color: var(--bg-light-rgb);
     }
     
     .head-user-name:hover {
@@ -121,7 +122,7 @@ const {sendWinController} = useIPC()
         transform: translateX(-35%);
         width: 12rem;
         border-radius: 1rem;
-        background: var(--text-deep-rgba-9);
+        background: var(--bg-light-rgb);
         padding: 2rem 0;
         
         div {
@@ -132,7 +133,7 @@ const {sendWinController} = useIPC()
           font-family: "HarmonyOS Sans", sans-serif;
           font-size: 1.4rem;
           text-align: center;
-          color: var(--text-color);
+          color: var(--bg-light-rgb);
         }
         
         div:hover {
@@ -144,7 +145,7 @@ const {sendWinController} = useIPC()
       span i {
         margin: 0 1rem;
         -webkit-app-region: no-drag; // li点击元素去除拖拽，不然后面无法实现点击事件
-        color: var(--text-color);
+        color: var(--bg-light-rgb);
         font-size: 1.8rem;
         line-height: 6rem;
       }

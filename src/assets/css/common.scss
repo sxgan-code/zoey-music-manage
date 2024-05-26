@@ -3,7 +3,7 @@
 @import "@/assets/css/animation/index.scss";
 :root {
   /*文字颜色*/
-  --text-color: rgb(255, 255, 255);
+  --text-color: rgb(0, 0, 0);
   --text-color-rgba: var(--bg-light-rgba-7);
   --text-active-color: rgb(226, 171, 144);
   /*部分配色*/
@@ -20,7 +20,7 @@
   --text-grey-light-8: rgba(153, 153, 153, 0.8);
   --text-grey-light-9: rgba(153, 153, 153, 0.9);
   /*高亮色*/
-  --bg-light-rgba: rgb(255, 255, 255);
+  --bg-light-rgb: rgb(255, 255, 255);
   --bg-light-rgba-1: rgba(255, 255, 255, 0.1);
   --bg-light-rgba-2: rgba(255, 255, 255, 0.2);
   --bg-light-rgba-3: rgba(255, 255, 255, 0.3);
@@ -41,9 +41,25 @@
   --text-deep-rgba-7: rgba(0, 0, 0, 0.7);
   --text-deep-rgba-8: rgba(0, 0, 0, 0.8);
   --text-deep-rgba-9: rgba(0, 0, 0, 0.9);
+  /*按钮*/
+  --button-bg: rgb(255, 255, 255);
+  --button-bg-hover: rgb(230, 230, 230);
+  --button-bg-active: rgb(204, 204, 204);
+  --button-text: rgb(0, 0, 0);
+  --button-text-hover: rgb(0, 0, 0);
+  --button-text-active: rgb(0, 0, 0);
+  --button-bg-primary: rgba(17, 182, 141, 0.5);
+  --button-bg-primary-hover: rgba(17, 182, 141, 0.9);
+  --button-bg-primary-active: rgba(17, 182, 141, 0.9);
+  --button-text-primary: rgb(255, 255, 255);
+  --button-bg-add: #0E83C5;
+  --button-bg-add-hover: #0E83C5;
+
   /*其他配色方案*/
   --text--tip: #3EAF7C;
   --my-dark-light-1: #805398;
+  --zoey-bg-menu: #0B2D4D;
+  --zoey-bg-head: #018CB6;
   --el-active-color: #cccccc;
   --el-color-white: #ffffff;
   --el-color-black: #000000;
@@ -129,20 +145,20 @@ html, body {
 /*滚动条整体样式*/
 ::-webkit-scrollbar {
   display: flex;
-  width: 0.4rem; /*高宽分别对应横竖滚动条的尺寸*/
-  height: 0.4rem; /*表示水平方向的滚动条高度*/
+  width: 0.5rem; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 0.5rem; /*表示水平方向的滚动条高度*/
 }
 
 ::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
   border-radius: 0.2rem;
-  -webkit-box-shadow: inset 0 0 0.1rem rgba(#fff, 0.2);
-  background: rgba(#fff, 0.1);
+  -webkit-box-shadow: inset 0 0 0.1rem rgba(#ccc, 0.4);
+  background: rgba(#000, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   border-radius: 0.2rem;
-  -webkit-box-shadow: inset 0 0 0.1rem rgba(#fff, 0.1);
-  background: rgba(#fff, 0.2);
+  -webkit-box-shadow: inset 0 0 0.1rem rgba(#fff, 0.2);
+  background: rgba(#000, 0.2);
 }
 
 ::-webkit-scrollbar-track { /*滚动条里面轨道*/
@@ -151,13 +167,7 @@ html, body {
   opacity: 0;
 }
 
-input::placeholder {
-  color: var(--bg-light-rgba-3);
-}
 
-/*这是控制上下小箭头的*/
-::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
+
 
 

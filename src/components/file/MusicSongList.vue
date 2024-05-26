@@ -2,6 +2,7 @@
 
 import SearchBox from "@/components/common/SearchBox.vue";
 import TableListBox from "@/components/common/TableListBox.vue";
+import {ref} from "vue";
 
 export interface StudentType {
   id: number,
@@ -10,7 +11,7 @@ export interface StudentType {
   address: string,
 }
 
-const list: StudentType[] = [
+const list = ref<StudentType[]>([
   {id: 1, name: '张三', age: 18, address: '北京'},
   {id: 2, name: '李四', age: 20, address: '上海'},
   {id: 3, name: '王五', age: 22, address: '广州'},
@@ -35,7 +36,15 @@ const list: StudentType[] = [
   {id: 22, name: '赵六', age: 24, address: '深圳'},
   {id: 23, name: '钱七', age: 26, address: '杭州'},
   {id: 24, name: '孙八', age: 28, address: '南京'},
-]
+])
+
+const page = ref({
+  currentIndex: 6,
+  pageSize: 20,
+  pageTotal: 9,
+  list: list.value,
+  sizeOptions: [20, 50, 100, 200],
+})
 </script>
 
 <template>
@@ -45,7 +54,7 @@ const list: StudentType[] = [
     </div>
     <div class="content-list">
       <!-- 歌曲列表 -->
-      <table-list-box :rows="list" :headers="['id','name','age','address']"/>
+      <table-list-box :rows="list" :headers="['id','name','age','address']" :page="page"/>
     </div>
     <div class="bottom-page-num">
       <!-- 分页 -->

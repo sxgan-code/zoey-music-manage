@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {LeftOutlined, RightOutlined} from "@ant-design/icons-vue";
-import {ref} from "vue";
+import {CloseOutlined, FormOutlined, LeftOutlined, RightOutlined} from "@ant-design/icons-vue";
 
 const props = defineProps({
   rows: {
@@ -8,21 +7,16 @@ const props = defineProps({
   },
   headers: {
     type: Array,
+  },
+  page: {
+    type: Object,
   }
-})
-
-const page = ref({
-  currentIndex: 1,
-  size: 20,
-  total: 8,
-  pageSize: 20,
-  pageSizes: [20, 50, 100, 200],
 })
 </script>
 
 <template>
   <div class="table-list-box">
-    <table class="table" cellspacing="0" cellpadding="0">
+    <table class="table">
       <thead>
       <tr>
         <th v-for="header in headers" :key="header as string">{{ header }}</th>
@@ -30,11 +24,17 @@ const page = ref({
       </tr>
       </thead>
       <tbody>
-      <tr v-for="row,index in rows" :key="index">
+      <tr v-for="(row,index) in rows" :key="index">
         <td v-for="key in row" :key="key">{{ key }}</td>
         <td class="td-control">
-          <button>编辑</button>
-          <button>删除</button>
+          <button>
+            <FormOutlined/>
+            编辑
+          </button>
+          <button>
+            <CloseOutlined/>
+            删除
+          </button>
         </td>
       </tr>
       </tbody>
@@ -42,20 +42,19 @@ const page = ref({
     <div class="page-num">
       <div class="text-info">总共{{ rows!.length }}条记录，每页显示
         <select name="example" id="example">
-          <option v-for="val in page.pageSizes" :value="val">{{ val }}</option>
+          <option v-for="val in page!.sizeOptions" :value="val">{{ val }}</option>
         </select>条
       </div>
       <div class="page-control">
         <div class="prev num-box">
           <LeftOutlined/>
         </div>
-        <div :class="page.currentIndex===item?'num-box box-selected':'num-box'"
-             v-if="page.total<8" v-for="item in page.total"> {{ item }}
+        <div :class="page!.currentIndex===item?'num-box box-selected':'num-box'"
+             v-for="item in page!.pageTotal>7?7:page!.pageTotal"> {{
+            page!.currentIndex > 4 ? item + page!.currentIndex - 4 : item
+          }}
         </div>
-        <div :class="page.currentIndex===item?'num-box box-selected':'num-box'"
-             v-if="page.total>=8" v-for="item in 7"> {{ item }}
-        </div>
-        <div v-if="page.total>= 8">...</div>
+        <div v-if="page!.pageTotal>= 8">...</div>
         <div class="next num-box">
           <RightOutlined/>
         </div>
@@ -69,7 +68,7 @@ const page = ref({
   height: calc(100vh - 19rem);
   width: 99%;
   margin: 0 auto;
-  background: var(--bg-light-rgba-1);
+  background: var(--bg-light-rgb);
   border-radius: 1rem;
   display: flex;
   align-content: space-between;
@@ -77,14 +76,15 @@ const page = ref({
   
   table {
     border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
     height: calc(100vh - 22rem);
     display: block;
     width: 100%;
-    background: var(--text-color);
+    background: var(--bg-light-rgb);
     
-    ::-webkit-scrollbar {
-      display: none;
-    }
+    //::-webkit-scrollbar {
+    //  display: none;
+    //}
     
     thead tr th {
       position: sticky;
@@ -119,7 +119,7 @@ const page = ref({
     }
     
     .td-control {
-      background: var(--text-color);
+      background: var(--bg-light-rgb);
       
       button {
         font-family: "HarmonyOS Sans", sans-serif;
@@ -128,6 +128,7 @@ const page = ref({
         margin: 0 1rem;
         border: none;
         border-radius: 1rem;
+        color: var(--bg-light-rgb);
       }
       
       button:first-child {
@@ -184,15 +185,15 @@ const page = ref({
     }
   }
   
-  .table::-webkit-scrollbar {
-    display: none; /* Chrome Safari */
-  }
+  //.table::-webkit-scrollbar {
+  //  display: none; /* Chrome Safari */
+  //}
   
   .table {
-    scrollbar-width: none; /* firefox */
-    -ms-overflow-style: none; /* IE 10+ */
+    //scrollbar-width: none; /* firefox */
+    //-ms-overflow-style: none; /* IE 10+ */
     overflow-x: auto;
-    overflow-y: auto;
+    //overflow-y: auto;
   }
 }
 

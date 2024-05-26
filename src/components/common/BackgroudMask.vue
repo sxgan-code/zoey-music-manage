@@ -4,7 +4,7 @@
 
 <template>
   <div class="bg-mask">
-    <img src="@/assets/images/bg.png" alt="">
+    <!--<img src="@/assets/images/bg.png" alt="">-->
   </div>
 </template>
 
@@ -16,7 +16,7 @@
   z-index: -9;
   width: 100vw;
   height: 100vh;
-  
+  background: var(--bg-light-rgb);
   img {
     width: 100vw;
     height: 100vh;
@@ -26,14 +26,14 @@
   }
 }
 
-.bg-mask:after {
-  content: '';
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: var(--text-deep-rgba-4);
-  filter: blur(60px);
-}
+//.bg-mask:after {
+//  content: '';
+//  width: 100vw;
+//  height: 100vh;
+//  position: fixed;
+//  left: 0;
+//  top: 0;
+//  background-color: var(--text-deep-rgba-4);
+//  filter: blur(60px);
+//}
 </style>

@@ -18,3 +18,13 @@ export interface ResponseResult<T> extends AxiosResponse<T> {
      */
     total: number;
 }
+
+export interface PageType<T> {
+    currentIndex: number,
+    pageSize: number,
+    pageTotal: number,
+    sizeOptions: number[],
+    data: T,
+}
+
+

@@ -43,7 +43,7 @@ import {SearchOutlined} from '@ant-design/icons-vue';
   width: 99%;
   height: 10rem;
   margin: 1rem auto;
-  background: var(--bg-light-rgba-1);
+  background: var(--bg-light-rgb);
   border-radius: 1rem;
   display: flex;
   align-content: space-between;
@@ -58,15 +58,15 @@ import {SearchOutlined} from '@ant-design/icons-vue';
       margin-right: 1rem;
       font-size: 1.5rem;
       font-family: "HarmonyOS Sans", sans-serif;
-      color: var(--bg-light-rgba-7);
+      color: var(--text-color);
     }
     
     input {
       background: none;
       height: 1.5rem;
       width: 14rem;
-      color: var(--bg-light-rgba-7);
-      border: solid 0.15rem var(--bg-light-rgba-4);
+      color: var(--text-color);
+      border: solid 0.15rem var(--text-grey-light-7);
       padding: 0.3rem;
     }
   }
@@ -80,8 +80,8 @@ import {SearchOutlined} from '@ant-design/icons-vue';
     
     .btn-search {
       width: 8rem;
-      background: var(--bg-light-rgba-2);
-      color: var(--bg-light-rgba-7);
+      background: var(--el-color-primary-light-3);
+      color: var(--text-color);
       border: none;
       border-radius: 0.3rem;
       padding: 0.3rem;
@@ -90,7 +90,7 @@ import {SearchOutlined} from '@ant-design/icons-vue';
     }
     
     .btn-search:hover {
-      background: var(--bg-light-rgba-3);
+      background: var(--el-color-primary);
     }
     
   }
