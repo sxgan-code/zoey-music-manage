@@ -1,22 +1,64 @@
 <script setup lang="ts">
 import {CloseOutlined, FormOutlined, LeftOutlined, RightOutlined} from "@ant-design/icons-vue";
+import {PageType} from "@/api/common-types.ts";
+import {ref} from "vue";
 
-const props = defineProps({
-  rows: {
-    type: Array,
-  },
-  headers: {
-    type: Array,
-  },
-  page: {
-    type: Object,
+const props = defineProps<{
+  headers: String[],
+  page: PageType,
+  edit: Function,
+  del: Function,
+  change: Function,
+}>()
+
+const pages = ref<PageType>(props.page)
+
+function pageNumScope(): number[] {
+  var index = pages.value.currentIndex
+  var total = pages.value.pageTotal
+  var num: number[] = [];
+  if (total <= 7) {
+    for (var i = 1; i <= total; i++) {
+      num.push(i)
+    }
+  } else if (index <= 4) {
+    for (var i = 1; i <= 7; i++) {
+      num.push(i)
+    }
+  } else if (index > 4 && index <= total - 4) {
+    for (var i = index - 3; i <= index + 3; i++) {
+      num.push(i)
+    }
+  } else if (index > total - 4) {
+    for (var i = total - 6; i <= total; i++) {
+      num.push(i)
+    }
   }
-})
+  console.log(num)
+  return num;
+}
+
+const prevPage = () => {
+  if (pages.value.currentIndex > 1) {
+    pages.value.currentIndex--
+  } else {
+    pages.value.currentIndex = pages.value.pageTotal
+  }
+  props.change(pages.value)
+}
+const nextPage = () => {
+  if (pages.value.currentIndex < pages.value.pageTotal) {
+    pages.value.currentIndex++
+  } else {
+    pages.value.currentIndex = 1
+  }
+  props.change(pages.value)
+}
 </script>
 
 <template>
   <div class="table-list-box">
-    <table class="table">
+    <table class="table" cellspacing="0" cellpadding="0">
       <thead>
       <tr>
         <th v-for="header in headers" :key="header as string">{{ header }}</th>
@@ -24,14 +66,14 @@ const props = defineProps({
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(row,index) in rows" :key="index">
-        <td v-for="key in row" :key="key">{{ key }}</td>
+      <tr v-for="(row,index) in page.list" :key="index">
+        <td v-for="key in row" :key="'row'+index">{{ key }}</td>
         <td class="td-control">
-          <button>
+          <button @click="edit(row)">
             <FormOutlined/>
             编辑
           </button>
-          <button>
+          <button @click="del(row)">
             <CloseOutlined/>
             删除
           </button>
@@ -40,22 +82,22 @@ const props = defineProps({
       </tbody>
     </table>
     <div class="page-num">
-      <div class="text-info">总共{{ rows!.length }}条记录，每页显示
-        <select name="example" id="example">
-          <option v-for="val in page!.sizeOptions" :value="val">{{ val }}</option>
+      <div class="text-info">总共{{ page.dataTotal }}条记录，每页显示
+        <select name="example" id="example" @change="page.currentIndex=1;change(page)" v-model="page.pageSize">
+          <option v-for="val in page.sizeOptions" :value="val">{{ val }}</option>
         </select>条
       </div>
       <div class="page-control">
-        <div class="prev num-box">
+        <div class="prev num-box" @click="prevPage()">
           <LeftOutlined/>
         </div>
-        <div :class="page!.currentIndex===item?'num-box box-selected':'num-box'"
-             v-for="item in page!.pageTotal>7?7:page!.pageTotal"> {{
-            page!.currentIndex > 4 ? item + page!.currentIndex - 4 : item
-          }}
+        <div :class="page.currentIndex===item?'num-box box-selected':'num-box'"
+             @click="page.currentIndex=item;change(page)"
+             v-for="item in pageNumScope()"> {{ item }}
         </div>
-        <div v-if="page!.pageTotal>= 8">...</div>
-        <div class="next num-box">
+        <div v-if="page!.pageTotal>= 8 && page.currentIndex<=page.pageTotal-4">...</div>
+        <div class="next num-box"
+             @click="nextPage">
           <RightOutlined/>
         </div>
       </div>
@@ -81,10 +123,6 @@ const props = defineProps({
     display: block;
     width: 100%;
     background: var(--bg-light-rgb);
-    
-    //::-webkit-scrollbar {
-    //  display: none;
-    //}
     
     thead tr th {
       position: sticky;
@@ -170,7 +208,9 @@ const props = defineProps({
       div {
         line-height: 2.4rem;
         height: 2.4rem;
-        width: 2.4rem;
+        min-width: 2rem;
+        padding: 0 0.2rem;
+        //width: 3.6rem;
         text-align: center;
         border: 0.1rem solid var(--text-deep-rgba-1);
       }

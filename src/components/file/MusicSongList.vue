@@ -2,7 +2,9 @@
 
 import SearchBox from "@/components/common/SearchBox.vue";
 import TableListBox from "@/components/common/TableListBox.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import {PageType} from "@/api/common-types.ts";
+import {getAllSongsApi} from "@/api/list";
 
 export interface StudentType {
   id: number,
@@ -11,40 +13,41 @@ export interface StudentType {
   address: string,
 }
 
-const list = ref<StudentType[]>([
-  {id: 1, name: '张三', age: 18, address: '北京'},
-  {id: 2, name: '李四', age: 20, address: '上海'},
-  {id: 3, name: '王五', age: 22, address: '广州'},
-  {id: 4, name: '赵六', age: 24, address: '深圳'},
-  {id: 5, name: '钱七', age: 26, address: '杭州'},
-  {id: 6, name: '孙八', age: 28, address: '南京'},
-  {id: 7, name: '张三', age: 18, address: '北京'},
-  {id: 8, name: '李四', age: 20, address: '上海'},
-  {id: 9, name: '王五', age: 22, address: '广州'},
-  {id: 10, name: '赵六', age: 24, address: '深圳'},
-  {id: 11, name: '钱七', age: 26, address: '杭州'},
-  {id: 12, name: '孙八', age: 28, address: '南京'},
-  {id: 13, name: '张三', age: 18, address: '北京'},
-  {id: 14, name: '李四', age: 20, address: '上海'},
-  {id: 15, name: '王五', age: 22, address: '广州'},
-  {id: 16, name: '赵六', age: 24, address: '深圳'},
-  {id: 17, name: '钱七', age: 26, address: '杭州'},
-  {id: 18, name: '孙八', age: 28, address: '南京'},
-  {id: 19, name: '张三', age: 18, address: '北京'},
-  {id: 20, name: '李四', age: 20, address: '上海'},
-  {id: 21, name: '王五', age: 22, address: '广州'},
-  {id: 22, name: '赵六', age: 24, address: '深圳'},
-  {id: 23, name: '钱七', age: 26, address: '杭州'},
-  {id: 24, name: '孙八', age: 28, address: '南京'},
-])
 
-const page = ref({
-  currentIndex: 6,
+const initpage = ref<PageType>({
+  currentIndex: 1,
   pageSize: 20,
-  pageTotal: 9,
-  list: list.value,
+  pageTotal: 1,
+  dataTotal: 0,
+  list: [],
   sizeOptions: [20, 50, 100, 200],
 })
+
+function delSong(song: StudentType) {
+  console.log(song)
+}
+
+function editSong(song: StudentType) {
+  console.log(song)
+}
+
+function change(page: PageType) {
+  getSongs(page)
+}
+
+function getSongs(page: PageType) {
+  getAllSongsApi(page).then(res => {
+    page.list = res.data.list
+    page.pageTotal = res.data.pageTotal
+    page.dataTotal = res.data.dataTotal
+  })
+}
+
+onMounted(() => {
+  getSongs(initpage.value)
+})
+const headers = ref(['歌曲ID', '歌曲名称', '歌曲地址', '歌曲图片地址', '是否喜欢', '歌词文件地址', '歌曲风格',
+  '发行日期', '专辑ID', '歌手ID', '删除标志', '上传时间', '更新时间', 'musicSinger', 'musicAlbum',])
 </script>
 
 <template>
@@ -54,7 +57,8 @@ const page = ref({
     </div>
     <div class="content-list">
       <!-- 歌曲列表 -->
-      <table-list-box :rows="list" :headers="['id','name','age','address']" :page="page"/>
+      <table-list-box :headers="headers" :page="initpage" :del="delSong"
+                      :edit="editSong" :change="change"/>
     </div>
     <div class="bottom-page-num">
       <!-- 分页 -->
