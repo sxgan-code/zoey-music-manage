@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BackgroudMask: typeof import('./../src/components/common/BackgroudMask.vue')['default']
+    DialogBox: typeof import('./../src/components/common/DialogBox.vue')['default']
     MainContent: typeof import('./../src/components/MainContent.vue')['default']
     MainHead: typeof import('./../src/components/MainHead.vue')['default']
     MainLeftMenu: typeof import('./../src/components/MainLeftMenu.vue')['default']

@@ -6,10 +6,9 @@ import {ref} from "vue";
 const props = defineProps<{
   headers: String[],
   page: PageType,
-  edit: Function,
-  del: Function,
-  change: Function,
 }>()
+
+const emit = defineEmits(['editSong', 'delSong', 'changePage'])
 
 const pages = ref<PageType>(props.page)
 
@@ -34,7 +33,6 @@ function pageNumScope(): number[] {
       num.push(i)
     }
   }
-  console.log(num)
   return num;
 }
 
@@ -44,7 +42,7 @@ const prevPage = () => {
   } else {
     pages.value.currentIndex = pages.value.pageTotal
   }
-  props.change(pages.value)
+  emit('changePage', pages.value)
 }
 const nextPage = () => {
   if (pages.value.currentIndex < pages.value.pageTotal) {
@@ -52,7 +50,7 @@ const nextPage = () => {
   } else {
     pages.value.currentIndex = 1
   }
-  props.change(pages.value)
+  emit('changePage', pages.value)
 }
 </script>
 
@@ -69,11 +67,11 @@ const nextPage = () => {
       <tr v-for="(row,index) in page.list" :key="index">
         <td v-for="key in row" :key="'row'+index">{{ key }}</td>
         <td class="td-control">
-          <button @click="edit(row)">
+          <button @click="$emit('editSong',row)">
             <FormOutlined/>
             编辑
           </button>
-          <button @click="del(row)">
+          <button @click="$emit('delSong',row)">
             <CloseOutlined/>
             删除
           </button>
@@ -82,8 +80,11 @@ const nextPage = () => {
       </tbody>
     </table>
     <div class="page-num">
-      <div class="text-info">总共{{ page.dataTotal }}条记录，每页显示
-        <select name="example" id="example" @change="page.currentIndex=1;change(page)" v-model="page.pageSize">
+      <div class="text-info">总共{{ page.dataTotal }}条记录，
+        {{ page.list.length < page.pageSize ? '当前页有' + page.list.length + '条，' : '' }}每页显示
+        <select name="example" id="example"
+                @change="page.currentIndex=1;emit('changePage', page)"
+                v-model="page.pageSize">
           <option v-for="val in page.sizeOptions" :value="val">{{ val }}</option>
         </select>条
       </div>
@@ -92,7 +93,7 @@ const nextPage = () => {
           <LeftOutlined/>
         </div>
         <div :class="page.currentIndex===item?'num-box box-selected':'num-box'"
-             @click="page.currentIndex=item;change(page)"
+             @click="page.currentIndex=item;emit('changePage', page)"
              v-for="item in pageNumScope()"> {{ item }}
         </div>
         <div v-if="page!.pageTotal>= 8 && page.currentIndex<=page.pageTotal-4">...</div>
