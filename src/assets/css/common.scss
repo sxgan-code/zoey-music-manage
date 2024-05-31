@@ -1,6 +1,7 @@
 @import "@/assets/iconfonts/iconconfig.scss";
 @import "@/assets/fonts/fonts.scss";
 @import "@/assets/css/animation/index.scss";
+
 :root {
   /*文字颜色*/
   --text-color: rgb(0, 0, 0);
@@ -173,6 +174,23 @@ html, body {
   opacity: 0;
 }
 
+/* 按钮公共样式*/
+.btn-primary {
+  width: 8rem;
+  height: 3rem;
+  background: var(--button-bg-primary);
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--bg-light-rgb);
+
+  &:hover {
+    background: var(--button-bg-primary-hover);
+  }
+}
+
+.btn-primary:focus {
+  background-color: var(--zoey-form-input-text);
+}
 
 
 

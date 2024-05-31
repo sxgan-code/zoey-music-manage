@@ -11,6 +11,7 @@ export const useUserStore = defineStore('user', {
         return {
             // 所有这些属性都将自动推断其类型
             isMask: false,
+            staticBaseUrl: import.meta.env.VITE_BASE_URL + '/static',
             maxOrUnMaxStart: true,
             /*自增函数*/
             counter: 0,

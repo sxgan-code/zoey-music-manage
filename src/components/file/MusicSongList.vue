@@ -8,6 +8,11 @@ import {getAllSongsApi, updateSongApi} from "@/api/list";
 import DialogBox from "@/components/common/DialogBox.vue";
 import {MusicSongType} from "@/api/list/types.ts";
 import msg, {PositionTypeEnum} from "@/components/message/index.ts"
+import {useUserStore} from "@/store/user-store.ts";
+import {fileUploadApi} from "@/api/file";
+
+const userStore = useUserStore();
+const timestamp = ref<number>(0)
 
 export interface StudentType {
   id: number,
@@ -37,6 +42,7 @@ function changePage(page: PageType) {
 
 function getSongs(page: PageType) {
   getAllSongsApi(page).then(res => {
+    timestamp.value = res.timestamp
     page.list = res.data.list
     page.pageTotal = res.data.pageTotal
     page.dataTotal = res.data.dataTotal
@@ -73,6 +79,36 @@ function commitUpdate(song: MusicSongType) {
   })
   dialogIsHidden.value = true
 }
+
+/**
+ * @Description: 文件上传
+ * @Author: sxgan
+ * @Date:
+ * @Version: 1.0
+ **/
+const selectedFile = ref(null);
+
+const handleFileChange = (event: any) => {
+  selectedFile.value = event.target.files[0];
+};
+const uploadFile = async () => {
+  if (!selectedFile.value) {
+    msg.warning('请选择一个文件', PositionTypeEnum.TOP);
+    return;
+  }
+  await fileUploadApi(selectedFile.value).then(res => {
+    try {
+      if (res.status === 200) {
+        msg.success('上传成功', PositionTypeEnum.TOP)
+      } else {
+      
+      }
+    } catch (error) {
+      msg.warning('文件上传异常', PositionTypeEnum.TOP)
+    }
+  })
+};
+
 </script>
 
 <template>
@@ -108,6 +144,17 @@ function commitUpdate(song: MusicSongType) {
             <input type="date" v-model="songRef!.releaseDate"/>
           </div>
         </div>
+        <div class="form-box">
+          <div class="form-title">歌曲图片：</div>
+          <div class="form-content">
+            <div class="img-box"><img :src="userStore.staticBaseUrl+songRef?.songPic+'?time='+timestamp" alt=""></div>
+            <div class="file-upload-box">
+              <input class="file-upload" type="file" accept="image/*" @change="handleFileChange">
+              <button type="button" class="btn-primary btn-box" @click="uploadFile">上传修改</button>
+            </div>
+          
+          </div>
+        </div>
       </dialog-box>
     </div>
     <div class="bottom-page-num">
@@ -139,7 +186,9 @@ function commitUpdate(song: MusicSongType) {
   .form-content {
     width: 62%;
     padding-left: 5rem;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     input {
       width: 30rem;
       height: 2.8rem;
@@ -149,6 +198,46 @@ function commitUpdate(song: MusicSongType) {
       font-size: 1.4rem;
       color: var(--zoey-form-input-text);
     }
+    
+    .img-box {
+      margin-top: 2rem;
+      width: 20rem;
+      height: 20rem;
+      
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+    
+    .file-upload-box {
+      padding-top: 1rem;
+      display: flex;
+      
+      .file-upload {
+        width: 30rem;
+        height: 3rem;
+        line-height: 3rem;
+      }
+      
+      .file-upload::file-selector-button {
+        display: none;
+        width: 8rem;
+        height: 2.6rem;
+        margin: 0.2rem 0;
+        background-color: #1E9FFF;
+        border: 1px solid #1E9FFF;
+        border-radius: 3px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 12px;
+      }
+    }
+    
+    .btn-box {
+      margin: 0 3rem 0;
+    }
   }
+  
 }
 </style>

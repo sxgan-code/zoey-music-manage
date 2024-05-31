@@ -2,7 +2,6 @@ import {PageType, ResponseResult} from "@/api/common-types.ts";
 import request from "@/utils/http.ts";
 import {MusicSongType} from "@/api/list/types.ts";
 
-
 /**
  * 获取所有歌曲信息
  *
