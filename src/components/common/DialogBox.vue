@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {CloseOutlined} from '@ant-design/icons-vue'
 
 const props = defineProps<{
   title: string,
@@ -11,7 +12,12 @@ const emit = defineEmits(['commitData', 'hideDialog'])
   <div class="dialog-box-root">
     <div class="dialog-box-content">
       <div class="dialog-box-content-body">
-        <div class="title">{{ title }}</div>
+        <div class="title">
+          <div>{{ title }}</div>
+          <div>
+            <CloseOutlined @click="$emit('hideDialog')"/>
+          </div>
+        </div>
         <div class="dialog-content-box">
           <div class="content">
             <slot></slot>
@@ -63,7 +69,14 @@ const emit = defineEmits(['commitData', 'hideDialog'])
       text-align: left;
       font-size: 1.5rem;
       background: var(--zoey-bg-top);
-      padding-left: 3rem;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      
+      div:last-child:hover {
+        cursor: pointer;
+        color: var(--text-active-color);
+      }
     }
     
     .dialog-content-box {

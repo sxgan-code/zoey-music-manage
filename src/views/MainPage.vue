@@ -4,6 +4,7 @@ import {useUserStore} from "@/store/user-store.ts";
 import MainLeftMenu from "@/components/MainLeftMenu.vue";
 import MainHead from "@/components/MainHead.vue";
 import {useRoute} from "vue-router";
+import MaskBox from "@/components/common/MaskBox.vue";
 
 var userStore = useUserStore();
 const route = useRoute()
@@ -11,13 +12,8 @@ const route = useRoute()
 
 <template>
   <div class="main-box-root">
-    <backgroud-mask/>
-    <div class="globe-mask" v-if="userStore.isMask">
-      <div class="globe-rotating-element icon-box">
-        <i class="icon myiconfont my-spinner9 "><span
-            class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-      </div>
-    </div>
+    <mask-box :is-mask="userStore.isMask"/>
+    <backgroud/>
     <div class="head-box">
       <main-head/>
     </div>

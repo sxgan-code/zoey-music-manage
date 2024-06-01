@@ -10,18 +10,18 @@ import {MusicSongType} from "@/api/list/types.ts";
 import msg, {PositionTypeEnum} from "@/components/message/index.ts"
 import {useUserStore} from "@/store/user-store.ts";
 import {fileUploadApi} from "@/api/file";
+import {PlusOutlined} from "@ant-design/icons-vue";
+import SongFileUploadProcess from "@/components/file/SongFileUploadProcess.vue";
 
 const userStore = useUserStore();
 const timestamp = ref<number>(0)
 
-export interface StudentType {
-  id: number,
-  name: string,
-  age: number,
-  address: string,
-}
-
-
+/**
+ * @Description: 表格相关
+ * @Author: sxgan
+ * @Date: 2024/6/1 11:26
+ * @Version: 1.0
+ **/
 const initPage = ref<PageType>({
   currentIndex: 1,
   pageSize: 20,
@@ -30,43 +30,54 @@ const initPage = ref<PageType>({
   list: [],
   sizeOptions: [20, 50, 100, 200],
 })
+const headers = ref(['歌曲ID', '歌曲名称', '歌曲地址', '歌曲图片地址', '是否喜欢', '歌词文件地址', '歌曲风格',
+  '发行日期', '专辑ID', '歌手ID', '删除标志', '上传时间', '更新时间', 'musicSinger', 'musicAlbum',])
 
+/* 删除歌曲 */
 function delSong(song: MusicSongType) {
   console.log(song)
 }
 
-
+/* 分页数据更改刷新 */
 function changePage(page: PageType) {
   getSongs(page)
 }
 
+/* 获取歌曲列表 */
 function getSongs(page: PageType) {
+  userStore.isMask = true
   getAllSongsApi(page).then(res => {
-    timestamp.value = res.timestamp
-    page.list = res.data.list
-    page.pageTotal = res.data.pageTotal
-    page.dataTotal = res.data.dataTotal
+    if (res.status === 200) {
+      timestamp.value = res.timestamp
+      page.list = res.data.list
+      page.pageTotal = res.data.pageTotal
+      page.dataTotal = res.data.dataTotal
+    } else {
+      msg.error('获取歌曲列表失败', PositionTypeEnum.TOP)
+    }
+    userStore.isMask = false
   })
 }
 
+/* 初始化 */
 onMounted(() => {
   getSongs(initPage.value)
 })
-const headers = ref(['歌曲ID', '歌曲名称', '歌曲地址', '歌曲图片地址', '是否喜欢', '歌词文件地址', '歌曲风格',
-  '发行日期', '专辑ID', '歌手ID', '删除标志', '上传时间', '更新时间', 'musicSinger', 'musicAlbum',])
 
+/**
+ * @Description: 歌曲图片修改上传
+ * @Author: sxgan
+ * @Date: 2024/6/1 11:25
+ * @Version: 1.0
+ **/
 let dialogIsHidden = ref<boolean>(true)
-
-function hideDialog() {
-  dialogIsHidden.value = true
-}
 
 const songRef = ref<MusicSongType | null>()
 
 function editSong(song: MusicSongType) {
   console.log(song)
   songRef.value = song
-  dialogIsHidden.value = false
+  show('edit')
 }
 
 function commitUpdate(song: MusicSongType) {
@@ -77,13 +88,13 @@ function commitUpdate(song: MusicSongType) {
       msg.success('修改成功', PositionTypeEnum.TOP)
     }
   })
-  dialogIsHidden.value = true
+  hideDialog()
 }
 
 /**
- * @Description: 文件上传
+ * @Description: 图片文件文件上传
  * @Author: sxgan
- * @Date:
+ * @Date: 2024/6/1 11:24
  * @Version: 1.0
  **/
 const selectedFile = ref(null);
@@ -108,6 +119,27 @@ const uploadFile = async () => {
     }
   })
 };
+/**
+ * @Description: 歌曲文件上传
+ * @Author: sxgan
+ * @Date: 2024/6/1 11:24
+ * @Version: 1.0
+ **/
+const uploadDialogIsHidden = ref<boolean>(true)
+
+function show(flag: string) {
+  if (flag === 'upload') {
+    uploadDialogIsHidden.value = false
+  } else if (flag === 'edit') {
+    dialogIsHidden.value = false
+  }
+}
+
+function hideDialog() {
+  dialogIsHidden.value = true
+  uploadDialogIsHidden.value = true
+}
+
 
 </script>
 
@@ -117,10 +149,10 @@ const uploadFile = async () => {
       <search-box/>
     </div>
     <div class="top-add-box">
-      <div class="input-component">
-        <span>歌曲名:</span>
-        <input type="text" placeholder="请输入搜索内容">
-      </div>
+      <button class="btn-mini btn-primary" @click="show('upload')">
+        <PlusOutlined/>
+        上传文件
+      </button>
     </div>
     <div class="content-list">
       <!-- 歌曲列表 -->
@@ -156,10 +188,13 @@ const uploadFile = async () => {
             <div class="img-box"><img :src="userStore.staticBaseUrl+songRef?.songPic+'?time='+timestamp" alt=""></div>
             <div class="file-upload-box">
               <input class="file-upload" type="file" accept="image/*" @change="handleFileChange">
-              <button type="button" class="btn-default btn-primary btn-box" @click="uploadFile">上传修改</button>
+              <button type="button" class="btn-max btn-primary btn-box" @click="uploadFile">上传修改</button>
             </div>
           </div>
         </div>
+      </dialog-box>
+      <dialog-box title="上传歌曲" v-if="!uploadDialogIsHidden" @hideDialog="hideDialog">
+        <SongFileUploadProcess/>
       </dialog-box>
     </div>
   </div>
@@ -177,9 +212,10 @@ const uploadFile = async () => {
     margin: 0.5rem auto;
     background: var(--bg-light-rgb);
     border-radius: 1rem;
-    display: flex;
-    align-content: space-between;
-    flex-wrap: wrap;
+    
+    button {
+      margin: 0.5rem 3rem;
+    }
   }
 }
 
@@ -201,6 +237,7 @@ const uploadFile = async () => {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
     input {
       width: 30rem;
       height: 2.8rem;
@@ -225,7 +262,6 @@ const uploadFile = async () => {
     .file-upload-box {
       padding-top: 1rem;
       display: flex;
-      
       .file-upload {
         width: 30rem;
         height: 3rem;

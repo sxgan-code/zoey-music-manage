@@ -7,16 +7,19 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Backgroud: typeof import('./../src/components/common/Backgroud.vue')['default']
     BackgroudMask: typeof import('./../src/components/common/BackgroudMask.vue')['default']
     DialogBox: typeof import('./../src/components/common/DialogBox.vue')['default']
     MainContent: typeof import('./../src/components/MainContent.vue')['default']
     MainHead: typeof import('./../src/components/MainHead.vue')['default']
     MainLeftMenu: typeof import('./../src/components/MainLeftMenu.vue')['default']
+    MaskBox: typeof import('./../src/components/common/MaskBox.vue')['default']
     MusicSongList: typeof import('./../src/components/file/MusicSongList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchBox: typeof import('./../src/components/common/SearchBox.vue')['default']
     SerachBox: typeof import('./../src/components/common/SerachBox.vue')['default']
+    SongFileUploadProcess: typeof import('./../src/components/file/SongFileUploadProcess.vue')['default']
     TableListBox: typeof import('./../src/components/common/TableListBox.vue')['default']
   }
 }

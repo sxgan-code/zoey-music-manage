@@ -5,6 +5,7 @@ import {verifyCheckStr, VerifyTypeEnum} from "@/utils/verify-utils.ts";
 import {useUserStore} from "@/store/user-store.ts";
 import {signinApi} from "@/api/auth";
 import msg, {PositionTypeEnum} from "@/components/message";
+import MaskBox from "@/components/common/MaskBox.vue";
 
 const {sendChildWinController, sendChildMsgToMain} = useIpc();
 
@@ -90,12 +91,7 @@ function verifyFormData(sign: VerifySignEnum) {
 </script>
 <template>
   <div class="login-root-box">
-    <div class="globe-mask" v-if="userStore.isMask">
-      <div class="globe-rotating-element icon-box">
-        <i class="icon myiconfont my-spinner9 "><span
-            class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-      </div>
-    </div>
+    <mask-box :is-mask="userStore.isMask"/>
     <div class="head-controller-close">
       <span class="icon-box-close" @click="sendChildWinController('close')">
         <i class="icon iconfont">&#xe68d</i>
@@ -120,8 +116,6 @@ function verifyFormData(sign: VerifySignEnum) {
       </div>
     </div>
   </div>
-  <!--<h1>这是子窗口</h1>-->
-  <!--  <button type="button" @click="sendMsgByChildWin()">发送消息</button>-->
 </template>
 
 <style scoped lang="scss">

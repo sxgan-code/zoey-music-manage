@@ -26,30 +26,6 @@
   transform: scale(1.3); /* 鼠标悬停时将元素缩放到原始大小的1.5倍 */
 }
 
-/*全局遮罩*/
-.globe-mask {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 999;
-  background: rgba(#000, 0.3);
-
-  .icon-box {
-    width: 10rem;
-    height: 10rem;
-    margin: calc(50vh - 5rem) auto 0;
-    background-image: linear-gradient(43deg, rgba(#4158D0, 0.5) 0%, rgba(#C850C0, 0.4) 46%, rgba(#FFCC70, 0.9) 100%); /*设置渐变的方向从左到右 颜色从ff0000到ffff00*/
-    background-clip: text; /*将设置的背景颜色限制在文字中*/
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /*给文字设置成透明*/
-    i {
-      font-size: 10rem;
-      color: #f89898;
-    }
-  }
-}
 
 
 

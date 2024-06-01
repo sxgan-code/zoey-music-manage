@@ -25,15 +25,4 @@
     opacity: 0.97;
   }
 }
-
-//.bg-mask:after {
-//  content: '';
-//  width: 100vw;
-//  height: 100vh;
-//  position: fixed;
-//  left: 0;
-//  top: 0;
-//  background-color: var(--text-deep-rgba-4);
-//  filter: blur(60px);
-//}
 </style>
