@@ -1,6 +1,7 @@
 @import "@/assets/iconfonts/iconconfig.scss";
 @import "@/assets/fonts/fonts.scss";
 @import "@/assets/css/animation/index.scss";
+@import "@/assets/css/btn.scss";
 
 :root {
   /*文字颜色*/
@@ -43,18 +44,41 @@
   --text-deep-rgba-8: rgba(0, 0, 0, 0.8);
   --text-deep-rgba-9: rgba(0, 0, 0, 0.9);
   /*按钮*/
-  --button-bg: rgb(255, 255, 255);
-  --button-bg-hover: rgb(230, 230, 230);
-  --button-bg-active: rgb(204, 204, 204);
-  --button-text: rgb(0, 0, 0);
-  --button-text-hover: rgb(0, 0, 0);
-  --button-text-active: rgb(0, 0, 0);
+  --btn-primary: #E8F4FF;
+  --btn-primary-text: #6F90FF;
+  --btn-primary-hover: #1890FF;
+  --btn-primary-text-hover: #FFFFFF;
+  --btn-primary-border: #409eff;
+
+  --btn-info: #E8F4FF;
+  --btn-info-text: rgba(17, 182, 141, 0.9);
+  --btn-info-hover: rgba(17, 182, 141, 0.5);
+  --btn-info-text-hover: #FFFFFF;
+  --btn-info-border: rgba(17, 182, 141, 0.5);
+
+  --btn-confirm: #E8F4FF;
+  --btn-confirm-text: rgba(121, 187, 255, 0.9);
+  --btn-confirm-hover: rgba(121, 187, 255, 0.5);
+  --btn-confirm-text-hover: #FFFFFF;
+  --btn-confirm-border: rgba(121, 187, 255, 0.5);
+
+  --btn-error: #FFFFFF;
+  --btn-error-text: #f89898;
+  --btn-error-hover: #c45656;
+  --btn-error-text-hover: #FFFFFF;
+  --btn-error-border: #f89898;
+
+  --btn-warning: #FFFFFF;
+  --btn-warning-text: #eebe77;
+  --btn-warning-hover: #e6a23c;
+  --btn-warning-text-hover: #FFFFFF;
+  --btn-warning-border: #eebe77;
+
   --button-bg-primary: rgba(17, 182, 141, 0.5);
   --button-bg-primary-hover: rgba(17, 182, 141, 0.9);
-  --button-bg-primary-active: rgba(17, 182, 141, 0.9);
-  --button-text-primary: rgb(255, 255, 255);
-  --button-bg-add: #0E83C5;
-  --button-bg-add-hover: #0E83C5;
+
+  --button-blue-primary: #a0cfff;
+  --button-blue-primary-hover: #409eff;
   /*表单相关*/
   --zoey-bg-input: #ECECEC;
   --zoey-form-title-text: #828380;
@@ -67,56 +91,53 @@
   --zoey-bg-top: #FAF8F6;
   --zoey-bg-bottom: #F0F5F5;
 
-  --el-active-color: #cccccc;
-  --el-color-white: #ffffff;
-  --el-color-black: #000000;
-  --el-color-primary: #409eff;
-  --el-color-primary-light-3: #79bbff;
-  --el-color-primary-light-5: #a0cfff;
-  --el-color-primary-light-7: #c6e2ff;
-  --el-color-primary-light-8: #d9ecff;
-  --el-color-primary-light-9: #ecf5ff;
-  --el-color-primary-dark-2: #337ecc;
-  --el-color-success: #67c23a;
-  --el-color-success-light-3: #95d475;
-  --el-color-success-light-5: #b3e19d;
-  --el-color-success-light-7: #d1edc4;
-  --el-color-success-light-8: #e1f3d8;
-  --el-color-success-light-9: #f0f9eb;
-  --el-color-success-dark-2: #529b2e;
-  --el-color-warning: #e6a23c;
-  --el-color-warning-light-3: #eebe77;
-  --el-color-warning-light-5: #f3d19e;
-  --el-color-warning-light-7: #f8e3c5;
-  --el-color-warning-light-8: #faecd8;
-  --el-color-warning-light-9: #fdf6ec;
-  --el-color-warning-dark-2: #b88230;
-  --el-color-danger: #f56c6c;
-  --el-color-danger-light-3: #f89898;
-  --el-color-danger-light-5: #fab6b6;
-  --el-color-danger-light-7: #fcd3d3;
-  --el-color-danger-light-8: #fde2e2;
-  --el-color-danger-light-9: #fef0f0;
-  --el-color-danger-dark-2: #c45656;
-  --el-color-error: #f56c6c;
-  --el-color-error-light-3: #f89898;
-  --el-color-error-light-5: #fab6b6;
-  --el-color-error-light-7: #fcd3d3;
-  --el-color-error-light-8: #fde2e2;
-  --el-color-error-light-9: #fef0f0;
-  --el-color-error-dark-2: #c45656;
-  --el-color-info: #909399;
-  --el-color-info-light-3: #b1b3b8;
-  --el-color-info-light-5: #c8c9cc;
-  --el-color-info-light-7: #dedfe0;
-  --el-color-info-light-8: #e9e9eb;
-  --el-color-info-light-9: #f4f4f5;
-  --el-color-info-dark-2: #73767a;
-  --el-bg-color: #ffffff;
-  --el-bg-color-page: #f2f3f5;
-  --el-bg-color-overlay: #ffffff;
-  --el-text-color-primary: #303133;
-  --el-text-color-regular: #606266;
+  --zoey-color-primary: #409eff;
+  --zoey-color-primary-light-3: #79bbff;
+  --zoey-color-primary-light-5: #a0cfff;
+  --zoey-color-primary-light-7: #c6e2ff;
+  --zoey-color-primary-light-8: #d9ecff;
+  --zoey-color-primary-light-9: #ecf5ff;
+  --zoey-color-primary-dark-2: #337ecc;
+  --zoey-color-success: #67c23a;
+  --zoey-color-success-light-3: #95d475;
+  --zoey-color-success-light-5: #b3e19d;
+  --zoey-color-success-light-7: #d1edc4;
+  --zoey-color-success-light-8: #e1f3d8;
+  --zoey-color-success-light-9: #f0f9eb;
+  --zoey-color-success-dark-2: #529b2e;
+  --zoey-color-warning: #e6a23c;
+  --zoey-color-warning-light-3: #eebe77;
+  --zoey-color-warning-light-5: #f3d19e;
+  --zoey-color-warning-light-7: #f8e3c5;
+  --zoey-color-warning-light-8: #faecd8;
+  --zoey-color-warning-light-9: #fdf6ec;
+  --zoey-color-warning-dark-2: #b88230;
+  --zoey-color-danger: #f56c6c;
+  --zoey-color-danger-light-3: #f89898;
+  --zoey-color-danger-light-5: #fab6b6;
+  --zoey-color-danger-light-7: #fcd3d3;
+  --zoey-color-danger-light-8: #fde2e2;
+  --zoey-color-danger-light-9: #fef0f0;
+  --zoey-color-danger-dark-2: #c45656;
+  --zoey-color-error: #f56c6c;
+  --zoey-color-error-light-3: #f89898;
+  --zoey-color-error-light-5: #fab6b6;
+  --zoey-color-error-light-7: #fcd3d3;
+  --zoey-color-error-light-8: #fde2e2;
+  --zoey-color-error-light-9: #fef0f0;
+  --zoey-color-error-dark-2: #c45656;
+  --zoey-color-info: #909399;
+  --zoey-color-info-light-3: #b1b3b8;
+  --zoey-color-info-light-5: #c8c9cc;
+  --zoey-color-info-light-7: #dedfe0;
+  --zoey-color-info-light-8: #e9e9eb;
+  --zoey-color-info-light-9: #f4f4f5;
+  --zoey-color-info-dark-2: #73767a;
+  --zoey-bg-color: #ffffff;
+  --zoey-bg-color-page: #f2f3f5;
+  --zoey-bg-color-overlay: #ffffff;
+  --zoey-text-color-primary: #303133;
+  --zoey-text-color-regular: #606266;
 }
 
 /* 页面元素整体设置*/
@@ -174,23 +195,7 @@ html, body {
   opacity: 0;
 }
 
-/* 按钮公共样式*/
-.btn-primary {
-  width: 8rem;
-  height: 3rem;
-  background: var(--button-bg-primary);
-  border: none;
-  border-radius: 0.5rem;
-  color: var(--bg-light-rgb);
 
-  &:hover {
-    background: var(--button-bg-primary-hover);
-  }
-}
-
-.btn-primary:focus {
-  background-color: var(--zoey-form-input-text);
-}
 
 
 

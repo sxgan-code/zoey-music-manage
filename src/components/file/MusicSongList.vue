@@ -116,6 +116,12 @@ const uploadFile = async () => {
     <div class="top-search-box">
       <search-box/>
     </div>
+    <div class="top-add-box">
+      <div class="input-component">
+        <span>歌曲名:</span>
+        <input type="text" placeholder="请输入搜索内容">
+      </div>
+    </div>
     <div class="content-list">
       <!-- 歌曲列表 -->
       <table-list-box :headers="headers"
@@ -150,16 +156,11 @@ const uploadFile = async () => {
             <div class="img-box"><img :src="userStore.staticBaseUrl+songRef?.songPic+'?time='+timestamp" alt=""></div>
             <div class="file-upload-box">
               <input class="file-upload" type="file" accept="image/*" @change="handleFileChange">
-              <button type="button" class="btn-primary btn-box" @click="uploadFile">上传修改</button>
+              <button type="button" class="btn-default btn-primary btn-box" @click="uploadFile">上传修改</button>
             </div>
-          
           </div>
         </div>
       </dialog-box>
-    </div>
-    <div class="bottom-page-num">
-      <!-- 分页 -->
-    
     </div>
   </div>
 
@@ -169,6 +170,17 @@ const uploadFile = async () => {
 .song-list-file-content {
   height: calc(100vh - 8rem);
   width: calc(100vw - 20rem);
+  
+  .top-add-box {
+    width: 99%;
+    height: 3rem;
+    margin: 0.5rem auto;
+    background: var(--bg-light-rgb);
+    border-radius: 1rem;
+    display: flex;
+    align-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 
 .form-box {

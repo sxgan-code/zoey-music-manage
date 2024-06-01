@@ -67,11 +67,11 @@ const nextPage = () => {
       <tr v-for="(row,index) in page.list" :key="index">
         <td v-for="key in row" :key="'row'+index">{{ key }}</td>
         <td class="td-control">
-          <button @click="$emit('editSong',row)">
+          <button class="btn-mini btn-primary" @click="$emit('editSong',row)">
             <FormOutlined/>
             编辑
           </button>
-          <button @click="$emit('delSong',row)">
+          <button class="btn-mini btn-error" @click="$emit('delSong',row)">
             <CloseOutlined/>
             删除
           </button>
@@ -108,7 +108,7 @@ const nextPage = () => {
 
 <style scoped lang="scss">
 .table-list-box {
-  height: calc(100vh - 19rem);
+  height: calc(100vh - 22rem);
   width: 99%;
   margin: 0 auto;
   background: var(--bg-light-rgb);
@@ -120,7 +120,7 @@ const nextPage = () => {
   table {
     border-top-right-radius: 1rem;
     border-top-left-radius: 1rem;
-    height: calc(100vh - 22rem);
+    height: calc(100vh - 25rem);
     display: block;
     width: 100%;
     background: var(--bg-light-rgb);
@@ -129,7 +129,7 @@ const nextPage = () => {
       position: sticky;
       top: 0;
       z-index: 1;
-      background: var(--el-color-primary-light-7);
+      background: var(--zoey-color-primary-light-7);
       height: 2rem;
       font-size: 1.3rem;
       color: var(--text-deep-rgba-8);
@@ -161,29 +161,7 @@ const nextPage = () => {
       background: var(--bg-light-rgb);
       
       button {
-        font-family: "HarmonyOS Sans", sans-serif;
-        width: 8rem;
-        height: 2.2rem;
-        margin: 0 1rem;
-        border: none;
-        border-radius: 1rem;
-        color: var(--bg-light-rgb);
-      }
-      
-      button:first-child {
-        background: var(--el-color-primary-light-5);
-      }
-      
-      button:first-child:hover {
-        background: var(--el-color-primary);
-      }
-      
-      button:last-child {
-        background: var(--el-color-error-light-5);
-      }
-      
-      button:last-child:hover {
-        background: var(--el-color-error);
+        margin: auto 1rem;
       }
     }
   }
@@ -193,7 +171,7 @@ const nextPage = () => {
     justify-content: space-between;
     height: 3rem;
     width: 100%;
-    background: var(--el-color-info-light-9);
+    background: var(--zoey-color-info-light-9);
     font-family: "HarmonyOS Sans", sans-serif;
     font-size: 1.4rem;
     line-height: 3rem;
@@ -217,11 +195,11 @@ const nextPage = () => {
       }
       
       .num-box:hover {
-        background: var(--el-color-primary-light-5);
+        background: var(--zoey-color-primary-light-5);
       }
       
       .box-selected {
-        background: var(--el-color-primary-light-5);
+        background: var(--zoey-color-primary-light-5);
       }
     }
   }

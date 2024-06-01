@@ -29,7 +29,7 @@ import {SearchOutlined} from '@ant-design/icons-vue';
       <input type="datetime-local">
     </div>
     <div class="btn-component">
-      <button class="btn-search">
+      <button class="btn-default btn-primary">
         <SearchOutlined class="ant-icon-search"/>
         搜索
       </button>
@@ -42,13 +42,13 @@ import {SearchOutlined} from '@ant-design/icons-vue';
 .search-box {
   width: 99%;
   height: 10rem;
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   background: var(--bg-light-rgb);
   border-radius: 1rem;
   display: flex;
   align-content: space-between;
   flex-wrap: wrap;
-  
+  box-shadow: 0.2rem 0.2rem 0.2rem var(--text-grey-light-4);
   .input-component {
     height: 5rem;
     line-height: 5rem;
@@ -77,22 +77,6 @@ import {SearchOutlined} from '@ant-design/icons-vue';
     line-height: 5rem;
     align-self: baseline;
     margin: 0.3rem 0 0 5rem;
-    
-    .btn-search {
-      width: 8rem;
-      background: var(--el-color-primary-light-3);
-      color: var(--text-color);
-      border: none;
-      border-radius: 0.3rem;
-      padding: 0.3rem;
-      font-size: 1.4rem;
-      font-family: "HarmonyOS Sans", sans-serif;
-    }
-    
-    .btn-search:hover {
-      background: var(--el-color-primary);
-    }
-    
   }
 }
 </style>

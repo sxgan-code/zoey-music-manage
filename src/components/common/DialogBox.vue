@@ -19,8 +19,8 @@ const emit = defineEmits(['commitData', 'hideDialog'])
         </div>
       </div>
       <div class="btn-control">
-        <button class="btn btn-commit" @click="$emit('commitData')">确认</button>
-        <button class="btn btn-close" @click="$emit('hideDialog')">取消</button>
+        <button class="btn btn-default btn-confirm" @click="$emit('commitData')">确认</button>
+        <button class="btn btn-default btn-cancel" @click="$emit('hideDialog')">取消</button>
       </div>
     </div>
   </div>
@@ -102,13 +102,10 @@ const emit = defineEmits(['commitData', 'hideDialog'])
     background: var(--bg-light-rgb);
   }
   
-  .btn-commit {
-    background: var(--el-color-primary-light-3);
-  }
   
   .btn-close:hover, .btn-commit:hover {
     border: none;
-    background: var(--el-color-primary);
+    background: var(--zoey-color-primary);
   }
   
 }
