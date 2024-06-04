@@ -39,3 +39,22 @@ export function updateSongApi(data: MusicSongType): Promise<ResponseResult<strin
         },
     });
 }
+
+/**
+ * 搜索歌曲信息
+ *
+ * @param data {LoginData}
+ * @returns
+ */
+export function searchSongApi(data: MusicSongType): Promise<ResponseResult<PageType>> {
+    const requestJsonData = JSON.stringify(data)
+    return request({
+        url: "/file/song/search",
+        method: "post",
+        data: requestJsonData,
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            // "Content-Type": "multipart/form-data",
+        },
+    });
+}

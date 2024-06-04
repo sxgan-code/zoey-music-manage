@@ -4,7 +4,7 @@ import SearchBox from "@/components/common/SearchBox.vue";
 import TableListBox from "@/components/common/TableListBox.vue";
 import {onMounted, ref} from "vue";
 import {PageType} from "@/api/common-types.ts";
-import {getAllSongsApi, updateSongApi} from "@/api/list";
+import {getAllSongsApi, searchSongApi, updateSongApi} from "@/api/list";
 import DialogBox from "@/components/common/DialogBox.vue";
 import {MusicSongType} from "@/api/list/types.ts";
 import msg, {PositionTypeEnum} from "@/components/message/index.ts"
@@ -140,13 +140,36 @@ function hideDialog() {
   uploadDialogIsHidden.value = true
 }
 
+/**
+ * @Description: 歌曲搜索
+ * @Author: sxgan
+ * @Date: 2024/6/4 19:21
+ * @Version: 1.0
+ **/
+function search(song: MusicSongType) {
+  console.log(song)
+  userStore.isMask = true
+  searchSongApi(song).then(res => {
+    if (res.status === 200) {
+      timestamp.value = res.timestamp
+      initPage.value.list = res.data.list
+      initPage.value.pageTotal = res.data.pageTotal
+      initPage.value.dataTotal = res.data.dataTotal
+      initPage.value.currentIndex = res.data.currentIndex
+      initPage.value.pageSize = res.data.pageSize
+    } else {
+      msg.error('服务器异常，搜索失败', PositionTypeEnum.TOP)
+    }
+    userStore.isMask = false
+  })
+}
 
 </script>
 
 <template>
   <div class="song-list-file-content">
     <div class="top-search-box">
-      <search-box/>
+      <search-box @search="search"/>
     </div>
     <div class="top-add-box">
       <button class="btn-mini btn-primary" @click="show('upload')">
@@ -262,6 +285,7 @@ function hideDialog() {
     .file-upload-box {
       padding-top: 1rem;
       display: flex;
+      
       .file-upload {
         width: 30rem;
         height: 3rem;

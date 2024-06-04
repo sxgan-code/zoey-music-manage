@@ -1,35 +1,50 @@
 <script setup lang="ts">
 import {SearchOutlined} from '@ant-design/icons-vue';
+import {ref} from "vue";
+
+const song = ref({
+  songName: '',
+  musicSinger: {
+    singerName: ''
+  },
+  musicAlbum: {
+    albumName: ''
+  },
+  releaseDate: '',
+  createTime: '',
+  updateTime: ''
+});
+const emit = defineEmits(['search']);
 </script>
 
 <template>
   <div class="search-box">
     <div class="input-component">
       <span>歌曲名:</span>
-      <input type="text" placeholder="请输入搜索内容">
+      <input type="text" placeholder="请输入搜索内容" v-model="song!.songName">
     </div>
     <div class="input-component">
       <span>歌手:</span>
-      <input type="text" placeholder="请输入搜索内容">
+      <input type="text" placeholder="请输入搜索内容" v-model="song!.musicSinger.singerName">
     </div>
     <div class="input-component">
       <span>专辑名:</span>
-      <input type="text" placeholder="请输入搜索内容">
+      <input type="text" placeholder="请输入搜索内容" v-model="song!.musicAlbum.albumName">
     </div>
     <div class="input-component">
       <span>发行时间:</span>
-      <input type="datetime-local">
+      <input type="datetime-local" v-model="song!.releaseDate">
     </div>
     <div class="input-component">
       <span>创建时间:</span>
-      <input type="datetime-local">
+      <input type="datetime-local" v-model="song!.createTime">
     </div>
     <div class="input-component">
       <span>更新时间:</span>
-      <input type="datetime-local">
+      <input type="datetime-local" v-model="song!.updateTime">
     </div>
     <div class="btn-component">
-      <button class="btn-default btn-primary">
+      <button class="btn-default btn-primary" @click="$emit('search',song)">
         <SearchOutlined class="ant-icon-search"/>
         搜索
       </button>
@@ -49,6 +64,7 @@ import {SearchOutlined} from '@ant-design/icons-vue';
   align-content: space-between;
   flex-wrap: wrap;
   box-shadow: 0.2rem 0.2rem 0.2rem var(--text-grey-light-4);
+  
   .input-component {
     height: 5rem;
     line-height: 5rem;
